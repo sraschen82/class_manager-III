@@ -29,10 +29,11 @@ const UserSchema = CollectionSchema(
       type: IsarType.objectList,
       target: r'Note',
     ),
-    r'pathSchedules': PropertySchema(
+    r'schedulles': PropertySchema(
       id: 2,
-      name: r'pathSchedules',
-      type: IsarType.string,
+      name: r'schedulles',
+      type: IsarType.object,
+      target: r'Schedulles',
     ),
     r'schoolYears': PropertySchema(
       id: 3,
@@ -54,7 +55,8 @@ const UserSchema = CollectionSchema(
     r'SchoolYear': SchoolYearSchema,
     r'Discipline': DisciplineSchema,
     r'SchoolClass': SchoolClassSchema,
-    r'Student': StudentSchema
+    r'Student': StudentSchema,
+    r'Schedulles': SchedullesSchema
   },
   getId: _userGetId,
   getLinks: _userGetLinks,
@@ -85,9 +87,11 @@ int _userEstimateSize(
     }
   }
   {
-    final value = object.pathSchedules;
+    final value = object.schedulles;
     if (value != null) {
-      bytesCount += 3 + value.length * 3;
+      bytesCount += 3 +
+          SchedullesSchema.estimateSize(
+              value, allOffsets[Schedulles]!, allOffsets);
     }
   }
   bytesCount += 3 + object.schoolYears.length * 3;
@@ -119,7 +123,12 @@ void _userSerialize(
     NoteSchema.serialize,
     object.notesList,
   );
-  writer.writeString(offsets[2], object.pathSchedules);
+  writer.writeObject<Schedulles>(
+    offsets[2],
+    allOffsets,
+    SchedullesSchema.serialize,
+    object.schedulles,
+  );
   writer.writeObjectList<SchoolYear>(
     offsets[3],
     allOffsets,
@@ -154,9 +163,13 @@ User _userDeserialize(
           SchoolYear(),
         ) ??
         [],
+    reader.readObjectOrNull<Schedulles>(
+      offsets[2],
+      SchedullesSchema.deserialize,
+      allOffsets,
+    ),
   );
   object.id = id;
-  object.pathSchedules = reader.readStringOrNull(offsets[2]);
   return object;
 }
 
@@ -182,7 +195,11 @@ P _userDeserializeProp<P>(
           ) ??
           []) as P;
     case 2:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readObjectOrNull<Schedulles>(
+        offset,
+        SchedullesSchema.deserialize,
+        allOffsets,
+      )) as P;
     case 3:
       return (reader.readObjectList<SchoolYear>(
             offset,
@@ -436,148 +453,18 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> pathSchedulesIsNull() {
+  QueryBuilder<User, User, QAfterFilterCondition> schedullesIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'pathSchedules',
+        property: r'schedulles',
       ));
     });
   }
 
-  QueryBuilder<User, User, QAfterFilterCondition> pathSchedulesIsNotNull() {
+  QueryBuilder<User, User, QAfterFilterCondition> schedullesIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'pathSchedules',
-      ));
-    });
-  }
-
-  QueryBuilder<User, User, QAfterFilterCondition> pathSchedulesEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'pathSchedules',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<User, User, QAfterFilterCondition> pathSchedulesGreaterThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'pathSchedules',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<User, User, QAfterFilterCondition> pathSchedulesLessThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'pathSchedules',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<User, User, QAfterFilterCondition> pathSchedulesBetween(
-    String? lower,
-    String? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'pathSchedules',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<User, User, QAfterFilterCondition> pathSchedulesStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'pathSchedules',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<User, User, QAfterFilterCondition> pathSchedulesEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'pathSchedules',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<User, User, QAfterFilterCondition> pathSchedulesContains(
-      String value,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'pathSchedules',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<User, User, QAfterFilterCondition> pathSchedulesMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'pathSchedules',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<User, User, QAfterFilterCondition> pathSchedulesIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'pathSchedules',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<User, User, QAfterFilterCondition> pathSchedulesIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'pathSchedules',
-        value: '',
+        property: r'schedulles',
       ));
     });
   }
@@ -682,6 +569,13 @@ extension UserQueryObject on QueryBuilder<User, User, QFilterCondition> {
     });
   }
 
+  QueryBuilder<User, User, QAfterFilterCondition> schedulles(
+      FilterQuery<Schedulles> q) {
+    return QueryBuilder.apply(this, (query) {
+      return query.object(q, r'schedulles');
+    });
+  }
+
   QueryBuilder<User, User, QAfterFilterCondition> schoolYearsElement(
       FilterQuery<SchoolYear> q) {
     return QueryBuilder.apply(this, (query) {
@@ -692,19 +586,7 @@ extension UserQueryObject on QueryBuilder<User, User, QFilterCondition> {
 
 extension UserQueryLinks on QueryBuilder<User, User, QFilterCondition> {}
 
-extension UserQuerySortBy on QueryBuilder<User, User, QSortBy> {
-  QueryBuilder<User, User, QAfterSortBy> sortByPathSchedules() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pathSchedules', Sort.asc);
-    });
-  }
-
-  QueryBuilder<User, User, QAfterSortBy> sortByPathSchedulesDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pathSchedules', Sort.desc);
-    });
-  }
-}
+extension UserQuerySortBy on QueryBuilder<User, User, QSortBy> {}
 
 extension UserQuerySortThenBy on QueryBuilder<User, User, QSortThenBy> {
   QueryBuilder<User, User, QAfterSortBy> thenById() {
@@ -718,29 +600,9 @@ extension UserQuerySortThenBy on QueryBuilder<User, User, QSortThenBy> {
       return query.addSortBy(r'id', Sort.desc);
     });
   }
-
-  QueryBuilder<User, User, QAfterSortBy> thenByPathSchedules() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pathSchedules', Sort.asc);
-    });
-  }
-
-  QueryBuilder<User, User, QAfterSortBy> thenByPathSchedulesDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pathSchedules', Sort.desc);
-    });
-  }
 }
 
-extension UserQueryWhereDistinct on QueryBuilder<User, User, QDistinct> {
-  QueryBuilder<User, User, QDistinct> distinctByPathSchedules(
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'pathSchedules',
-          caseSensitive: caseSensitive);
-    });
-  }
-}
+extension UserQueryWhereDistinct on QueryBuilder<User, User, QDistinct> {}
 
 extension UserQueryProperty on QueryBuilder<User, User, QQueryProperty> {
   QueryBuilder<User, int, QQueryOperations> idProperty() {
@@ -761,9 +623,9 @@ extension UserQueryProperty on QueryBuilder<User, User, QQueryProperty> {
     });
   }
 
-  QueryBuilder<User, String?, QQueryOperations> pathSchedulesProperty() {
+  QueryBuilder<User, Schedulles?, QQueryOperations> schedullesProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'pathSchedules');
+      return query.addPropertyName(r'schedulles');
     });
   }
 

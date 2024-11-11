@@ -93,19 +93,21 @@ Future<void> removeSchoolYearDialog({required BuildContext context}) async {
                   ),
                 )),
           ),
+          actionsAlignment: MainAxisAlignment.spaceEvenly,
           actions: [
             TextButton(
                 onPressed: () => Navigator.pop(context),
                 child: const Text('Cancel')),
             TextButton(
-              // onPressed: () => validateForm(),
               onPressed: () async {
-                for (SchoolYear element in deletedList) {
-                  await context
-                      .read<SchoolYearStore>()
-                      .deleteSchoolYear(schoolYear: element);
+                if (deletedList.isNotEmpty) {
+                  for (SchoolYear element in deletedList) {
+                    await context
+                        .read<SchoolYearStore>()
+                        .deleteSchoolYear(schoolYear: element);
+                  }
+                  Navigator.pop(context);
                 }
-                Navigator.pop(context);
               },
               child: const Text('Excluir'),
             ),

@@ -90,28 +90,8 @@ class _SchoolYearWidgetState extends State<SchoolYearWidget> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('${state.schoolYears.first.year}')
+                        Text('MEUS HORÁRIOS (${state.schoolYears.first.year})')
                             .removeNullAndEditSize(20),
-                        // DrawerButton(
-                        //   onPressed: () {
-                        //     Scaffold.of(context).openDrawer();
-                        //   },
-                        // ),
-                        // DropdownButton<int>(
-                        //   isDense: true,
-                        //   value: null,
-                        //   icon: Icon(
-                        //     Icons.arrow_drop_down,
-                        //     color: MyColors().titleColor,
-                        //   ),
-                        //   items: [
-                        //     DropdownMenuItem(
-                        //         value: 0, child: Text('Adicionar ano letivo.')),
-                        //     DropdownMenuItem(
-                        //         value: 1, child: Text('Remover ano letivo.')),
-                        //   ],
-                        //   onChanged: (value) {},
-                        // )
                       ],
                     ),
                   ));

@@ -119,6 +119,7 @@ Future<void> selectSchoolYearDialog({required BuildContext context}) async {
                   ),
                 ),
               ),
+              actionsAlignment: MainAxisAlignment.spaceEvenly,
               actions: [
                 TextButton(
                     onPressed: () => Navigator.pop(context),

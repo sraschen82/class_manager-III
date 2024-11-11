@@ -27,7 +27,8 @@ class MyColors {
 
   final alertColor = const Color.fromARGB(255, 170, 11, 11);
   final sucessMessageColor = const Color.fromARGB(255, 5, 87, 25);
-  final dialogWidgetColor = const Color.fromARGB(255, 3, 5, 109);
+  // final dialogWidgetColor = const Color.fromARGB(255, 3, 5, 109);
+  final dialogWidgetColor = const Color.fromARGB(255, 109, 3, 3);
 
   List<Color> colorsPalette1 = [
     const Color.fromRGBO(42, 40, 36, 0),

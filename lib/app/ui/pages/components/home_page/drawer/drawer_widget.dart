@@ -7,6 +7,7 @@ import 'package:class_manager/app/ui/pages/components/home_page/school_years/add
 import 'package:class_manager/app/ui/pages/components/home_page/school_years/remove_school_year_dialog.dart';
 import 'package:class_manager/app/ui/pages/components/home_page/school_years/select_school_year_dialog.dart';
 import 'package:class_manager/app/ui/ui_elements/app_colors.dart';
+import 'package:class_manager/app/ui/ui_elements/image_widget.dart';
 import 'package:class_manager/main.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -38,56 +39,66 @@ class _DrawerWidgetState extends State<DrawerWidget> {
       child: Column(
         children: [
           SizedBox(
-              height: 300,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(8, 15, 8, 8),
-                child: Column(
-                  children: [
-                    Text(
-                      'Configurações do usuário',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    ListTile(
-                      title: Text('Alterar senha'),
-                      onTap: () async {
-                        await changePasswordDialog(context: context);
-                      },
-                    ),
-                    ListTile(
-                      title: Text('Excluir usuário'),
-                      onTap: () async {
-                        await confirmDialog(
-                            context: context,
-                            title: 'ALERTA!',
-                            text:
-                                'Você deseja, realmente, excluir o usuário?\n\nTodas as informações salvas serão apagadas.',
-                            action: () async {
-                              await db.deleteUser(user: user);
-
-                              Navigator.pop(context);
-                            });
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ClassManager(),
-                            ));
-                      },
-                    ),
-                    ListTile(
-                      title: Text('Sair'),
-                      onTap: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ClassManager(),
-                            ));
-                      },
-                    ),
-                  ],
+            padding: const EdgeInsets.fromLTRB(8, 10, 8, 8),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: SizedBox(
+                    height: 80,
+                    child: imageShimmerWidget('assets/image/logoMaua1.gif', 15,
+                        Alignment.bottomCenter),
+                  ),
                 ),
-              )),
-          Divider(),
+                Text(
+                  'Configurações do usuário',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                ListTile(
+                  title: Text('Alterar senha'),
+                  onTap: () async {
+                    await changePasswordDialog(context: context);
+                  },
+                ),
+                ListTile(
+                  title: Text('Excluir usuário'),
+                  onTap: () async {
+                    await confirmDialog(
+                        context: context,
+                        title: 'ALERTA!',
+                        text:
+                            'Você deseja, realmente, excluir o usuário?\n\nTodas as informações salvas serão apagadas.',
+                        action: () async {
+                          await db.deleteUser(user: user);
+
+                          Navigator.pop(context);
+                        });
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ClassManager(),
+                        ));
+                  },
+                ),
+                ListTile(
+                  title: Text('Sair'),
+                  onTap: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ClassManager(),
+                        ));
+                  },
+                ),
+                Divider(),
+              ],
+            ),
+          )),
+          Text(
+            'Pedagógico',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
           ListTile(
             title: Text('Selecionar ano letivo'),
             onTap: () async {

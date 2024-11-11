@@ -28,7 +28,7 @@ class DisciplineStore {
 
   Stream<List<Discipline>> getAllDiscilpine(int year) async* {
     DisciplineStates state = Loading();
-
+    _controller.sink.add(state);
     List<Discipline> list = [];
     await getDisciplinesByYear(year: year).then(
       (value) => list.addAll(value),
@@ -54,6 +54,7 @@ class DisciplineStore {
   Future<void> saveDiscipline(
       {required int year, required Discipline newDiscipline}) async {
     DisciplineStates state = Loading();
+    _controller.sink.add(state);
     List<Discipline> list = [];
     await getDisciplinesByYear(year: year).then(
       (value) => list.addAll(value),
@@ -104,6 +105,7 @@ class DisciplineStore {
   Future<void> deleteDiscipline(
       {required Discipline discipline, required int year}) async {
     DisciplineStates state = Loading();
+    _controller.sink.add(state);
     List<Discipline> list = [];
     await getDisciplinesByYear(year: year).then(
       (value) => list.addAll(value),

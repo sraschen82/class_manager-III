@@ -39,7 +39,7 @@ class SchoolYearStore {
 
   Future<void> saveSchoolYear({required SchoolYear schoolYear}) async {
     SchoolYearStates state = Loading();
-
+    _controller.sink.add(state);
     List<SchoolYear> list = [];
     list.addAll(db.user.schoolYears);
     if (list.any((element) => element.year == schoolYear.year)) {
@@ -79,6 +79,7 @@ class SchoolYearStore {
 
   Future<void> deleteSchoolYear({required SchoolYear schoolYear}) async {
     SchoolYearStates state = Loading();
+    _controller.sink.add(state);
     List<SchoolYear> list = [];
     list.addAll(db.user.schoolYears);
     try {
@@ -97,7 +98,7 @@ class SchoolYearStore {
 
   Future<void> selectSchoolYear({required SchoolYear schoolYear}) async {
     SchoolYearStates state = Loading();
-
+    _controller.sink.add(state);
     List<SchoolYear> list = [];
     list.addAll(db.user.schoolYears);
     list.removeWhere((element) => element.year == schoolYear.year);
