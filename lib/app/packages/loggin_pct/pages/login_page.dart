@@ -7,6 +7,7 @@ import 'package:class_manager/app/packages/loggin_pct/login_store.dart';
 import 'package:class_manager/app/packages/loggin_pct/validate.dart';
 import 'package:class_manager/app/ui/pages/initial_page.dart';
 import 'package:class_manager/app/ui/ui_elements/app_colors.dart';
+import 'package:class_manager/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
@@ -362,12 +363,11 @@ class _LogginPageState extends State<LoginPage> {
                             if (isRegister)
                               TextButton(
                                   onPressed: () {
-                                    Navigator.of(context).pushReplacement(
+                                    Navigator.pushReplacement(
+                                        context,
                                         MaterialPageRoute(
-                                            builder: (context) =>
-                                                const LoginPage(
-                                                  isRegisterPage: false,
-                                                )));
+                                          builder: (context) => ClassManager(),
+                                        ));
                                   },
                                   child: const Text(
                                     'Back to LOGIN.',

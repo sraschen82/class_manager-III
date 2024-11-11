@@ -1,5 +1,4 @@
 import 'package:class_manager/app/ui/ui_elements/app_colors.dart';
-import 'package:class_manager/app/ui/ui_elements/image_widget.dart';
 import 'package:flutter/material.dart';
 
 class StatsPage extends StatefulWidget {

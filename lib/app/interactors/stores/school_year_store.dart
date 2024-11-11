@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:class_manager/app/data/data_base/abstract_data_base.dart';
 import 'package:class_manager/app/interactors/entities/school_year_entity.dart';
-import 'package:class_manager/app/interactors/entities/user_entity.dart';
 import 'package:class_manager/app/interactors/states/school_year_states.dart';
 
 class SchoolYearStore {
@@ -14,9 +13,10 @@ class SchoolYearStore {
 
   Stream<SchoolYearStates> get schoolYearStream => _controller.stream;
 
-  Stream<List<SchoolYear>> getAllSchoolYears() async* {
+  Future<List<SchoolYear>> getAllSchoolYears() async {
     SchoolYearStates state = Loading();
-
+    _controller.sink.add(state);
+    print('getAllSchoolYears: ${state}');
     List<SchoolYear> list = [];
     try {
       db.user.schoolYears.isNotEmpty
@@ -34,12 +34,12 @@ class SchoolYearStore {
 
     _controller.add(state);
 
-    yield list;
+    return list;
   }
 
   Future<void> saveSchoolYear({required SchoolYear schoolYear}) async {
-    SchoolYearStates state = Empty();
-    User newUser = db.user;
+    SchoolYearStates state = Loading();
+
     List<SchoolYear> list = [];
     list.addAll(db.user.schoolYears);
     if (list.any((element) => element.year == schoolYear.year)) {
@@ -78,7 +78,7 @@ class SchoolYearStore {
   }
 
   Future<void> deleteSchoolYear({required SchoolYear schoolYear}) async {
-    SchoolYearStates state = Empty();
+    SchoolYearStates state = Loading();
     List<SchoolYear> list = [];
     list.addAll(db.user.schoolYears);
     try {
@@ -87,6 +87,27 @@ class SchoolYearStore {
       state = Loaded(schoolYears: list);
     } catch (e) {
       state = Error(message: 'Erro ao remover o ano letivo.');
+      _controller.sink.add(state);
+      await Future.delayed(const Duration(seconds: 3));
+      state = Loaded(schoolYears: list);
+    }
+
+    _controller.sink.add(state);
+  }
+
+  Future<void> selectSchoolYear({required SchoolYear schoolYear}) async {
+    SchoolYearStates state = Loading();
+
+    List<SchoolYear> list = [];
+    list.addAll(db.user.schoolYears);
+    list.removeWhere((element) => element.year == schoolYear.year);
+    list.insert(0, schoolYear);
+
+    try {
+      await db.saveUser(user: db.user.copyWith(schoolYears: list));
+      state = Loaded(schoolYears: list);
+    } catch (e) {
+      state = Error(message: 'Erro ao selecionar o ano letivo.');
       _controller.sink.add(state);
       await Future.delayed(const Duration(seconds: 3));
       state = Loaded(schoolYears: list);
