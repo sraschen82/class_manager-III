@@ -106,6 +106,7 @@ Future<void> removeSchoolYearDialog({required BuildContext context}) async {
                         .read<SchoolYearStore>()
                         .deleteSchoolYear(schoolYear: element);
                   }
+
                   Navigator.pop(context);
                 }
               },

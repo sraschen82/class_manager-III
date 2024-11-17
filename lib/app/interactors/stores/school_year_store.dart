@@ -85,7 +85,7 @@ class SchoolYearStore {
     try {
       list.remove(schoolYear);
       await db.saveUser(user: db.user.copyWith(schoolYears: list));
-      state = Loaded(schoolYears: list);
+      list.length > 0 ? state = Loaded(schoolYears: list) : state = Empty();
     } catch (e) {
       state = Error(message: 'Erro ao remover o ano letivo.');
       _controller.sink.add(state);

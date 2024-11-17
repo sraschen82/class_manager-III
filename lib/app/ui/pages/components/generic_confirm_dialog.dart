@@ -22,9 +22,12 @@ Future<void> confirmDialog(
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
           )),
           content: Card(
-            color: const Color.fromARGB(255, 100, 4, 4),
+            shape: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(color: MyColors().titleColor)),
+            color: MyColors().paletteColor1.withOpacity(.3),
             child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(20.0),
                 child: SizedBox(
                   height: 150,
                   child: Center(
@@ -35,6 +38,7 @@ Future<void> confirmDialog(
                   ),
                 )),
           ),
+          actionsAlignment: MainAxisAlignment.spaceEvenly,
           actions: [
             TextButton(
                 onPressed: () => Navigator.pop(context),

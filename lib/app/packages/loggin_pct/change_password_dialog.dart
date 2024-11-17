@@ -1,7 +1,6 @@
 import 'package:class_manager/app/data/data_base/abstract_data_base.dart';
 import 'package:class_manager/app/interactors/entities/user_entity.dart';
 import 'package:class_manager/app/ui/pages/components/message_dialog.dart';
-import 'package:class_manager/app/ui/pages/home_page.dart';
 import 'package:class_manager/app/ui/pages/initial_page.dart';
 import 'package:class_manager/app/ui/ui_elements/app_colors.dart';
 import 'package:flutter/material.dart';

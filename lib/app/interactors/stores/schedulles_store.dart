@@ -13,44 +13,42 @@ class SchedullesStore {
 
   Stream<SchedullesStates> get schedullesStream => _controller.stream;
 
-  Future<Schedulles> getSchedulles() async {
+  Future<Schedulles?> getSchedulles() async {
     SchedullesStates state = Loading();
-
     _controller.sink.add(state);
-    print('getAllschedulles: ${state}');
-    Schedulles schedulles = Schedulles();
+    Schedulles? schedulles = db.user.schedulles;
     try {
-      // db.user.schedulles.isNotEmpty
-      //     ? {
-
-      //         state = Loaded(schedulles ),
-      //       }
-      //     : state = Empty();
+      schedulles != null
+          ? {
+              state = Loaded(schedulles: schedulles),
+            }
+          : state = Empty();
     } catch (e) {
-      state = Error(message: 'Erro ao carregar os anos letivos.');
+      state = Error(message: 'Erro ao carregar os horárioss.');
       _controller.add(state);
       await Future.delayed(const Duration(seconds: 3));
       state = Empty();
     }
-
     _controller.add(state);
-
     return schedulles;
   }
 
   Future<void> saveSchedulles({required Schedulles newSchedulles}) async {
     SchedullesStates state = Loading();
-    Schedulles schedulles = Schedulles();
+    _controller.add(state);
+    Schedulles? oldSchedulles = db.user.schedulles;
 
     try {
-      // await db.saveUser(user: db.user.copyWith(schedulles: list));
+      await db.saveUser(user: db.user.copyWith(schedulles: newSchedulles));
 
       state = Loaded(schedulles: newSchedulles);
     } catch (e) {
-      state = Error(message: 'Erro ao salvar o ano letivo.');
+      state = Error(message: 'Erro ao salvar o novo horário.');
       _controller.add(state);
       await Future.delayed(const Duration(seconds: 3));
-      state = Loaded(schedulles: newSchedulles);
+      oldSchedulles != null
+          ? state = Loaded(schedulles: oldSchedulles)
+          : state = Empty();
     }
 
     _controller.add(state);
@@ -58,17 +56,34 @@ class SchedullesStore {
 
   Future<void> deleteSchedulles({required Schedulles schedulles}) async {
     SchedullesStates state = Loading();
+    _controller.add(state);
+    Schedulles? oldSchedulles = db.user.schedulles;
 
     try {
-      state = Loaded(schedulles: schedulles);
+      await db.saveUser(user: db.user.copyWith(schedulles: null));
+      state = Empty();
     } catch (e) {
       state = Error(message: 'Erro ao remover o ano letivo.');
       _controller.sink.add(state);
       await Future.delayed(const Duration(seconds: 3));
-      state = Loaded(schedulles: schedulles);
+      oldSchedulles != null
+          ? state = Loaded(schedulles: oldSchedulles)
+          : state = Empty();
     }
 
     _controller.sink.add(state);
+  }
+
+  Future<void> checkCreatingSchedullesCondictions() async {
+    db.user.schoolYears.first.disicplines!.isEmpty
+        ? {print('Dialog Criar disciplinas')}
+        : {
+            db.user.schoolYears.first.disicplines!.any(
+              (element) => element.classes != null,
+            )
+                ? {print('Dialog Criar horários')}
+                : {print('Dialog Criar Turmas')},
+          };
   }
 
   void dispose() => _controller.close();

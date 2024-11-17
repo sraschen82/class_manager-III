@@ -12,7 +12,7 @@ class DisciplineStore {
 
   final _controller = StreamController<DisciplineStates>.broadcast();
 
-  Stream<DisciplineStates> get schoolYearStream => _controller.stream;
+  Stream<DisciplineStates> get disciplineStream => _controller.stream;
 
   Future<List<Discipline>> getDisciplinesByYear({required int year}) async {
     List<Discipline> list = [];
@@ -26,7 +26,7 @@ class DisciplineStore {
     return list;
   }
 
-  Stream<List<Discipline>> getAllDiscilpine(int year) async* {
+  Future<List<Discipline>> getAllDiscilpine({required int year}) async {
     DisciplineStates state = Loading();
     _controller.sink.add(state);
     List<Discipline> list = [];
@@ -48,7 +48,7 @@ class DisciplineStore {
 
     _controller.add(state);
 
-    yield list;
+    return list;
   }
 
   Future<void> saveDiscipline(
@@ -102,11 +102,45 @@ class DisciplineStore {
     _controller.add(state);
   }
 
-  Future<void> deleteDiscipline(
-      {required Discipline discipline, required int year}) async {
+  Future<void> editDiscipline(
+      {required int year,
+      required Discipline oldDiscipline,
+      required Discipline newDiscipline}) async {
     DisciplineStates state = Loading();
     _controller.sink.add(state);
     List<Discipline> list = [];
+    await getDisciplinesByYear(year: year).then(
+      (value) => list.addAll(value),
+    );
+    User newUser = db.user;
+
+    int index = list.indexOf(oldDiscipline);
+    list.removeWhere((element) => element.longName == oldDiscipline.longName);
+    list.insert(index, newDiscipline);
+
+    try {
+      newUser.schoolYears
+          .firstWhere((element) => element.year == year)
+          .disicplines = list;
+
+      await db.saveUser(user: newUser);
+
+      state = Loaded(disciplines: list);
+    } catch (e) {
+      state = Error(message: 'Algo deu errado, tente novamente mais tarde.');
+      _controller.add(state);
+      await Future.delayed(const Duration(seconds: 3));
+      state = Loaded(disciplines: list);
+    }
+
+    _controller.add(state);
+  }
+
+  Future<void> deleteDiscipline({required Discipline discipline}) async {
+    DisciplineStates state = Loading();
+    _controller.sink.add(state);
+    List<Discipline> list = [];
+    int year = db.user.schoolYears.first.year!;
     await getDisciplinesByYear(year: year).then(
       (value) => list.addAll(value),
     );
