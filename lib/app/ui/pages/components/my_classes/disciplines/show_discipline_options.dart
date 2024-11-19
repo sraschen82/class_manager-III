@@ -65,10 +65,11 @@ class ShowDisciplineOptions extends StatelessWidget {
                                 text:
                                     'Deseja realmente excluir a disciplina ${selectedDiscipline.longName}?',
                                 action: () async {
+                                  Navigator.pop(context);
                                   await store.deleteDiscipline(
                                       discipline: selectedDiscipline);
-                                  Navigator.pop(context);
                                 });
+
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(

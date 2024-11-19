@@ -2,6 +2,7 @@ import 'package:class_manager/app/data/data_base/abstract_data_base.dart';
 import 'package:class_manager/app/interactors/entities/discipline_entity.dart';
 import 'package:class_manager/app/interactors/stores/discipline_store.dart';
 import 'package:class_manager/app/interactors/stores/school_class_store.dart';
+import 'package:class_manager/app/ui/extentions/text_ext.dart';
 import 'package:class_manager/app/ui/pages/components/my_classes/classes/classes_widget.dart';
 import 'package:class_manager/app/ui/pages/components/my_classes/disciplines/create_discipline_dialog.dart';
 import 'package:class_manager/app/ui/pages/components/my_classes/disciplines/show_discipline_options.dart';
@@ -140,12 +141,13 @@ class _ShowDisciplinesWidgetState extends State<ShowDisciplinesWidget> {
         if (showDisciplineOptions)
           ShowDisciplineOptions(
               selectedDiscipline: selectedDiscipline, store: store),
-        Padding(
-          padding: EdgeInsets.all(8),
-          child: Center(
-            child: Text('${selectedDiscipline.longName}'),
-          ),
-        ),
+        // Padding(
+        //   padding: EdgeInsets.all(8),
+        //   child: Center(
+        //     child: Text('---- ${selectedDiscipline.longName} ----')
+        //         .removeNullAndEditSize(25),
+        //   ),
+        // ),
         ClassesWidget(
           discipline: selectedDiscipline,
         ),
