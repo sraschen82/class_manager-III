@@ -2,6 +2,7 @@ import 'package:class_manager/app/interactors/entities/discipline_entity.dart';
 import 'package:class_manager/app/interactors/stores/discipline_store.dart';
 import 'package:class_manager/app/ui/extentions/text_ext.dart';
 import 'package:class_manager/app/ui/pages/components/generic_confirm_dialog.dart';
+import 'package:class_manager/app/ui/pages/components/my_classes/classes/create_class_dialog.dart';
 import 'package:class_manager/app/ui/pages/components/my_classes/disciplines/edit_discipline_dialog.dart';
 import 'package:class_manager/app/ui/pages/initial_page.dart';
 import 'package:class_manager/app/ui/ui_elements/app_colors.dart';
@@ -50,7 +51,11 @@ class ShowDisciplineOptions extends StatelessWidget {
                           },
                           child: Text('Editar')),
                       TextButton(
-                          onPressed: () async {},
+                          onPressed: () async {
+                            await createClassDialog(
+                                context: context,
+                                discipline: selectedDiscipline);
+                          },
                           child: Text('Adicionar Turma')),
                       TextButton(
                           onPressed: () async {

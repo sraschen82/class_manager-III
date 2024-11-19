@@ -39,8 +39,7 @@ class _DisciplinesWidgetState extends State<DisciplinesWidget> {
   @override
   Widget build(BuildContext context) {
     DisciplineStore store = context.watch<DisciplineStore>();
-    final double heigth = MediaQuery.of(context).size.height;
-    final double width = MediaQuery.of(context).size.width;
+
     return StreamBuilder(
       stream: store.disciplineStream,
       builder: (context, snapshot) {
@@ -59,7 +58,7 @@ class _DisciplinesWidgetState extends State<DisciplinesWidget> {
         } else if (snapshot.hasData) {
           DisciplineStates state = snapshot.data!;
           if (state is Empty) {
-            child = EmptyDisciplinesWidget(width: width, heigth: heigth);
+            child = EmptyDisciplinesWidget();
           }
           if (state is Loading) {
             child = SizedBox(

@@ -1,6 +1,8 @@
 import 'package:class_manager/app/data/data_base/abstract_data_base.dart';
 import 'package:class_manager/app/interactors/entities/discipline_entity.dart';
 import 'package:class_manager/app/interactors/stores/discipline_store.dart';
+import 'package:class_manager/app/interactors/stores/school_class_store.dart';
+import 'package:class_manager/app/ui/pages/components/my_classes/classes/classes_widget.dart';
 import 'package:class_manager/app/ui/pages/components/my_classes/disciplines/create_discipline_dialog.dart';
 import 'package:class_manager/app/ui/pages/components/my_classes/disciplines/show_discipline_options.dart';
 import 'package:class_manager/app/ui/ui_elements/app_colors.dart';
@@ -19,6 +21,7 @@ class _ShowDisciplinesWidgetState extends State<ShowDisciplinesWidget> {
   List<Discipline> list = [];
   Discipline selectedDiscipline = Discipline.empty();
   bool showDisciplineOptions = false;
+
   @override
   void initState() {
     super.initState();
@@ -38,6 +41,9 @@ class _ShowDisciplinesWidgetState extends State<ShowDisciplinesWidget> {
             selectedList[0] = true;
           },
         );
+        await context
+            .read<SchoolClassStore>()
+            .getClasses(discipline: selectedDiscipline);
       },
     );
   }
@@ -47,7 +53,7 @@ class _ShowDisciplinesWidgetState extends State<ShowDisciplinesWidget> {
     final double heigth = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
     DisciplineStore store = context.watch<DisciplineStore>();
-    // context.watch<DisciplineStore>();
+    context.watch<SchoolClassStore>();
 
     return Column(
       children: [
@@ -56,8 +62,10 @@ class _ShowDisciplinesWidgetState extends State<ShowDisciplinesWidget> {
             elevation: 15,
             child: DecoratedBox(
               decoration: BoxDecoration(
-                gradient: MyColors().gradientHomePageTitle(),
-              ),
+                  border: Border.fromBorderSide(
+                      BorderSide(color: MyColors().titleColor)),
+                  borderRadius: BorderRadius.circular(12),
+                  gradient: MyColors().gradientHomePageTitle()),
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                 child: SizedBox(
@@ -94,6 +102,11 @@ class _ShowDisciplinesWidgetState extends State<ShowDisciplinesWidget> {
                                     });
                                   },
                                   child: Card(
+                                      shape: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          borderSide: BorderSide(
+                                              color: MyColors().paletteColor4)),
                                       color: selectedList[index]
                                           ? MyColors().paletteColor3
                                           : MyColors().paletteColor2,
@@ -127,12 +140,14 @@ class _ShowDisciplinesWidgetState extends State<ShowDisciplinesWidget> {
         if (showDisciplineOptions)
           ShowDisciplineOptions(
               selectedDiscipline: selectedDiscipline, store: store),
-        Card(
-          child: SizedBox(
-              height: 50,
-              child: Center(
-                  child: Text(
-                      'Classes Store recebe  ${selectedDiscipline.longName}'))),
+        Padding(
+          padding: EdgeInsets.all(8),
+          child: Center(
+            child: Text('${selectedDiscipline.longName}'),
+          ),
+        ),
+        ClassesWidget(
+          discipline: selectedDiscipline,
         ),
       ],
     );

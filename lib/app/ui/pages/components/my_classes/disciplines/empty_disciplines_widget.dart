@@ -2,10 +2,7 @@ import 'package:class_manager/app/ui/pages/components/my_classes/disciplines/cre
 import 'package:flutter/material.dart';
 
 class EmptyDisciplinesWidget extends StatelessWidget {
-  final double heigth;
-  final double width;
-  const EmptyDisciplinesWidget(
-      {super.key, required this.heigth, required this.width});
+  const EmptyDisciplinesWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

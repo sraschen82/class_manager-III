@@ -16,7 +16,7 @@ class SchoolYearStore {
   Future<List<SchoolYear>> getAllSchoolYears() async {
     SchoolYearStates state = Loading();
     _controller.sink.add(state);
-    print('getAllSchoolYears: ${state}');
+
     List<SchoolYear> list = [];
     try {
       db.user.schoolYears.isNotEmpty

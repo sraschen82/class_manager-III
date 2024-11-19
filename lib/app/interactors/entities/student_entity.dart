@@ -12,8 +12,7 @@ class Student {
   double? finalGrade3;
   double? revaluationGrade1;
   double? revaluationGrade2;
-  double? revaluationGrade3;
-  double? finalRevaluationGrade;
+   double? finalRevaluationGrade;
 
   Student();
 }

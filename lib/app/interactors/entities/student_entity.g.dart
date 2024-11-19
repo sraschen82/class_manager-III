@@ -53,18 +53,13 @@ const StudentSchema = Schema(
       name: r'revaluationGrade2',
       type: IsarType.double,
     ),
-    r'revaluationGrade3': PropertySchema(
-      id: 8,
-      name: r'revaluationGrade3',
-      type: IsarType.double,
-    ),
     r'secondQuarterGrades': PropertySchema(
-      id: 9,
+      id: 8,
       name: r'secondQuarterGrades',
       type: IsarType.doubleList,
     ),
     r'thirdQuarterGrades': PropertySchema(
-      id: 10,
+      id: 9,
       name: r'thirdQuarterGrades',
       type: IsarType.doubleList,
     )
@@ -102,9 +97,8 @@ void _studentSerialize(
   writer.writeString(offsets[5], object.name);
   writer.writeDouble(offsets[6], object.revaluationGrade1);
   writer.writeDouble(offsets[7], object.revaluationGrade2);
-  writer.writeDouble(offsets[8], object.revaluationGrade3);
-  writer.writeDoubleList(offsets[9], object.secondQuarterGrades);
-  writer.writeDoubleList(offsets[10], object.thirdQuarterGrades);
+  writer.writeDoubleList(offsets[8], object.secondQuarterGrades);
+  writer.writeDoubleList(offsets[9], object.thirdQuarterGrades);
 }
 
 Student _studentDeserialize(
@@ -122,9 +116,8 @@ Student _studentDeserialize(
   object.name = reader.readString(offsets[5]);
   object.revaluationGrade1 = reader.readDoubleOrNull(offsets[6]);
   object.revaluationGrade2 = reader.readDoubleOrNull(offsets[7]);
-  object.revaluationGrade3 = reader.readDoubleOrNull(offsets[8]);
-  object.secondQuarterGrades = reader.readDoubleList(offsets[9]) ?? [];
-  object.thirdQuarterGrades = reader.readDoubleList(offsets[10]) ?? [];
+  object.secondQuarterGrades = reader.readDoubleList(offsets[8]) ?? [];
+  object.thirdQuarterGrades = reader.readDoubleList(offsets[9]) ?? [];
   return object;
 }
 
@@ -152,10 +145,8 @@ P _studentDeserializeProp<P>(
     case 7:
       return (reader.readDoubleOrNull(offset)) as P;
     case 8:
-      return (reader.readDoubleOrNull(offset)) as P;
-    case 9:
       return (reader.readDoubleList(offset) ?? []) as P;
-    case 10:
+    case 9:
       return (reader.readDoubleList(offset) ?? []) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -926,90 +917,6 @@ extension StudentQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
         property: r'revaluationGrade2',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<Student, Student, QAfterFilterCondition>
-      revaluationGrade3IsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'revaluationGrade3',
-      ));
-    });
-  }
-
-  QueryBuilder<Student, Student, QAfterFilterCondition>
-      revaluationGrade3IsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'revaluationGrade3',
-      ));
-    });
-  }
-
-  QueryBuilder<Student, Student, QAfterFilterCondition>
-      revaluationGrade3EqualTo(
-    double? value, {
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'revaluationGrade3',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<Student, Student, QAfterFilterCondition>
-      revaluationGrade3GreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'revaluationGrade3',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<Student, Student, QAfterFilterCondition>
-      revaluationGrade3LessThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'revaluationGrade3',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<Student, Student, QAfterFilterCondition>
-      revaluationGrade3Between(
-    double? lower,
-    double? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'revaluationGrade3',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
