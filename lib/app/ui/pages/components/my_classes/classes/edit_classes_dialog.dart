@@ -5,9 +5,14 @@ import 'package:class_manager/app/ui/ui_elements/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-Future<void> createClassDialog(
-    {required BuildContext context, required Discipline discipline}) async {
-  TextEditingController nameController = TextEditingController();
+Future<void> editClassDialog(
+    {required BuildContext context,
+    required SchoolClass editedClass,
+    required Discipline discipline}) async {
+  bool clearStudents = false;
+
+  TextEditingController nameController =
+      TextEditingController(text: editedClass.name);
 
   return showDialog(
       context: context,
@@ -16,11 +21,12 @@ Future<void> createClassDialog(
           if (nameController.text.isNotEmpty) {
             SchoolClass newClass = SchoolClass()
               ..name = nameController.text
-              ..students = [];
+              ..students = clearStudents ? [] : editedClass.students;
 
-            await context
-                .read<SchoolClassStore>()
-                .addClass(newClass: newClass, discipline: discipline);
+            await context.read<SchoolClassStore>().editClass(
+                newClass: newClass,
+                oldClass: editedClass,
+                discipline: discipline);
           }
           Navigator.pop(context);
         }
@@ -37,7 +43,7 @@ Future<void> createClassDialog(
                 child: Column(
               children: [
                 Text(
-                  'CRIAR TURMA',
+                  'EDITAR TURMA',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                 ),
                 Text('${discipline.longName}')
@@ -63,6 +69,7 @@ Future<void> createClassDialog(
                         decoration: InputDecoration(
                             alignLabelWithHint: true,
                             labelText: 'Nome',
+                            hintText: editedClass.name,
                             enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: MyColors().titleColor,
@@ -105,11 +112,12 @@ Future<void> createClassDialog(
               ),
               TextButton(
                 onPressed: () async {
+                  clearStudents = true;
                   validateForm();
                   // ir para adicionar alunos
                 },
                 child: const Text(
-                  'Adicionar\nAlunos',
+                  'Exluir todos\nAlunos',
                   maxLines: 2,
                   textAlign: TextAlign.center,
                 ),

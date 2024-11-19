@@ -104,14 +104,16 @@ class SchoolClassStore {
   }
 
   Future<void> editClass(
-      {required SchoolClass newClass, required Discipline discipline}) async {
+      {required SchoolClass newClass,
+      required SchoolClass oldClass,
+      required Discipline discipline}) async {
     SchoolClassStates state = Loading();
     _controller.sink.add(state);
     List<SchoolClass> list = await _fetchClasses(discipline: discipline);
 
     try {
       list.removeWhere(
-        (element) => element.name == newClass.name,
+        (element) => element.name == oldClass.name,
       );
       list.add(newClass);
       list.sort();

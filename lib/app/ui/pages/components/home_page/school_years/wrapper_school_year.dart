@@ -3,19 +3,19 @@ import 'package:class_manager/app/interactors/states/school_year_states.dart';
 import 'package:class_manager/app/interactors/stores/school_year_store.dart';
 import 'package:class_manager/app/ui/extentions/text_ext.dart';
 import 'package:class_manager/app/ui/pages/components/home_page/school_years/empty_widget.dart';
-import 'package:class_manager/app/ui/pages/components/home_page/shedulles/schedulles_widget.dart';
+import 'package:class_manager/app/ui/pages/components/home_page/shedulles/wrapper_schedulles.dart';
 import 'package:class_manager/app/ui/ui_elements/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class SchoolYearWidget extends StatefulWidget {
-  const SchoolYearWidget({super.key});
+class WrapperSchoolYear extends StatefulWidget {
+  const WrapperSchoolYear({super.key});
 
   @override
-  State<SchoolYearWidget> createState() => _SchoolYearWidgetState();
+  State<WrapperSchoolYear> createState() => _WrapperSchoolYearState();
 }
 
-class _SchoolYearWidgetState extends State<SchoolYearWidget> {
+class _WrapperSchoolYearState extends State<WrapperSchoolYear> {
   List<SchoolYear> schoolYears = [];
   @override
   void initState() {
@@ -92,7 +92,7 @@ class _SchoolYearWidgetState extends State<SchoolYearWidget> {
                               .removeNullAndEditSize(20),
                         ],
                       ),
-                      SchedullesWidget(),
+                      WrapperSchedulles(),
                     ],
                   ),
                 ));

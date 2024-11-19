@@ -1,5 +1,5 @@
 import 'package:class_manager/app/ui/pages/components/home_page/drawer/drawer_widget.dart';
-import 'package:class_manager/app/ui/pages/components/home_page/school_years/school_year_widget.dart';
+import 'package:class_manager/app/ui/pages/components/home_page/school_years/wrapper_school_year.dart';
 import 'package:class_manager/app/ui/ui_elements/app_colors.dart';
 import 'package:class_manager/app/ui/ui_elements/image_widget.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +58,7 @@ class HomePage extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SchoolYearWidget(),
+                              WrapperSchoolYear(),
                               // Center(
                               //   child: Text('Home Page'),
                               // )

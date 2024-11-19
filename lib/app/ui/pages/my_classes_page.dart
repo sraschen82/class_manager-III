@@ -1,7 +1,7 @@
 import 'package:class_manager/app/interactors/states/school_year_states.dart';
 import 'package:class_manager/app/interactors/stores/school_year_store.dart';
 import 'package:class_manager/app/ui/pages/components/home_page/school_years/empty_widget.dart';
-import 'package:class_manager/app/ui/pages/components/my_classes/disciplines/disciplines_widget.dart';
+import 'package:class_manager/app/ui/pages/components/my_classes/disciplines/wrapper_disciplines.dart';
 import 'package:class_manager/app/ui/ui_elements/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -132,7 +132,7 @@ class _MyClassesState extends State<MyClasses> {
                                           ));
                                     }
                                     if (state is Loaded) {
-                                      child = DisciplinesWidget();
+                                      child = WrapperDisciplines();
                                     }
                                   }
                                   return child;
