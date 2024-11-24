@@ -4,6 +4,7 @@ import 'package:class_manager/app/interactors/entities/discipline_entity.dart';
 import 'package:class_manager/app/interactors/entities/school_class_entity.dart';
 import 'package:class_manager/app/interactors/entities/student_entity.dart';
 import 'package:class_manager/app/interactors/stores/school_class_store.dart';
+import 'package:class_manager/app/ui/pages/components/my_classes/students/edit_student/edit_student_widget.dart';
 import 'package:class_manager/app/ui/ui_elements/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +16,6 @@ Future<void> setStudentGradeDialog(
     required Discipline discipline,
     required int index,
     required bool isGrade}) async {
-      
   setGrade(double? grade) async {
     Student editedStudent = student;
     if (grade == null) {
@@ -71,6 +71,16 @@ Future<void> setStudentGradeDialog(
         oldStudent: student,
         schoolClass: schoolClass,
         discipline: discipline);
+
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => EditStudentWidget(
+              context: context,
+              student: student,
+              discipline: discipline,
+              schoolClass: schoolClass),
+        ));
   }
 
   return showDialog(
