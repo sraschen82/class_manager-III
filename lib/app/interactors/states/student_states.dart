@@ -1,19 +1,19 @@
-import 'package:class_manager/app/interactors/entities/student_entity.dart';
+// import 'package:class_manager/app/interactors/entities/student_entity.dart';
 
-sealed class StudentStates {}
+// sealed class StudentStates {}
 
-class Empty extends StudentStates {}
+// class Empty extends StudentStates {}
 
-class Loading extends StudentStates {}
+// class Loading extends StudentStates {}
 
-class Loaded extends StudentStates {
-  final Student student;
+// class Loaded extends StudentStates {
+//   final Student student;
 
-  Loaded({required this.student});
-}
+//   Loaded({required this.student});
+// }
 
-class Error extends StudentStates {
-   final String message;
+// class Error extends StudentStates {
+//    final String message;
 
-  Error({required this.message});
-}
+//   Error({required this.message});
+// }

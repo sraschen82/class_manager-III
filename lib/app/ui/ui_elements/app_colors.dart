@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 
 const color1 = Color.fromRGBO(63, 5, 5, 1);
 const color2 = Color.fromRGBO(194, 195, 223, 1);
-const color3 = Color.fromRGBO(187, 25, 25, 1);
+// const color3 = Color.fromRGBO(187, 25, 25, 1);
+const color3 = Color.fromRGBO(187, 28, 28, 1);
 const color4 = Color.fromRGBO(88, 38, 38, 1);
 
 class MyColors {
@@ -24,6 +25,7 @@ class MyColors {
   final gold = const Color.fromARGB(255, 202, 174, 16);
 
   final iconColor = const Color.fromARGB(255, 44, 123, 175);
+  final gradesIcon = const Color.fromARGB(255, 5, 79, 139);
 
   final alertColor = const Color.fromARGB(255, 170, 11, 11);
   final sucessMessageColor = const Color.fromARGB(255, 5, 87, 25);
@@ -37,14 +39,29 @@ class MyColors {
     const Color.fromRGBO(97, 93, 82, 0),
   ];
 
-  final gradientColors2 = [color1, color3, color4];
+  final gradientColors2 = [color1, color3, color3, color4];
+  final gradientColors3 = [
+    const Color.fromARGB(255, 70, 13, 13),
+    const Color.fromARGB(255, 124, 7, 7),
+    const Color.fromARGB(255, 124, 7, 7),
+    color4
+  ];
 
   gradientHomePage() {
     return LinearGradient(
       colors: gradientColors2,
       tileMode: TileMode.decal,
-      begin: Alignment.topRight,
-      end: Alignment.bottomLeft,
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+    );
+  }
+
+  gradientStudentCard() {
+    return LinearGradient(
+      colors: gradientColors3,
+      tileMode: TileMode.clamp,
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
     );
   }
 

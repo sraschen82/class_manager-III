@@ -15,4 +15,6 @@ class Student {
    double? finalRevaluationGrade;
 
   Student();
+
+  isInFirstQarterRevaluation() {}
 }

@@ -31,7 +31,6 @@ class _MyClassesState extends State<MyClasses> {
     final store = context.watch<SchoolYearStore>();
 
     return Card(
-      shadowColor: Colors.transparent,
       margin: const EdgeInsets.all(2.0),
       child: DecoratedBox(
         decoration: BoxDecoration(gradient: MyColors().gradientHomePage()),
@@ -45,7 +44,7 @@ class _MyClassesState extends State<MyClasses> {
                       BoxDecoration(gradient: MyColors().gradientHomePage()),
                   child: SizedBox.expand(
                       child: Card(
-                    color: Colors.black.withOpacity(.2),
+                    color: Colors.transparent,
                     elevation: 20,
                     child: SizedBox(
                       height: 80,

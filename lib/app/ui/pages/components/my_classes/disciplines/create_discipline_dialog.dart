@@ -53,7 +53,6 @@ Future<void> createDisciplineDialog(BuildContext context) async {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       TextField(
-                        maxLength: 20,
                         cursorColor: MyColors().titleColor,
                         cursorRadius: const Radius.circular(15),
                         cursorHeight: 18,

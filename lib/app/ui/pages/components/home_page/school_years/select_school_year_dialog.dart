@@ -84,8 +84,6 @@ Future<void> selectSchoolYearDialog({required BuildContext context}) async {
                                   ..disicplines = [];
                               }
 
-                              print(isSelectedList);
-                              print(selected.year);
                               setState(
                                 () {},
                               );
@@ -127,7 +125,6 @@ Future<void> selectSchoolYearDialog({required BuildContext context}) async {
                 TextButton(
                   onPressed: () async {
                     if (selected.year != 0) {
-                      print('selecionado');
                       await context
                           .read<SchoolYearStore>()
                           .selectSchoolYear(schoolYear: selected);
