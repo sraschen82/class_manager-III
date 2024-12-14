@@ -1,7 +1,7 @@
 import 'package:class_manager/app/interactors/entities/discipline_entity.dart';
 import 'package:class_manager/app/interactors/entities/school_class_entity.dart';
 import 'package:class_manager/app/interactors/entities/student_entity.dart';
-import 'package:class_manager/app/interactors/stores/school_class_store.dart';
+import 'package:class_manager/app/interactors/stores/student_store.dart';
 import 'package:class_manager/app/ui/ui_elements/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -32,7 +32,7 @@ class _EditNameComponentState extends State<EditNameComponent> {
 
       if (nameController.text.isNotEmpty && nameController.text.length > 2) {
         editedStudent.name = nameController.text.toUpperCase();
-        await context.read<SchoolClassStore>().editStudent(
+        await context.read<StudentStore>().editStudent(
             editedStudent: editedStudent,
             oldStudent: widget.student,
             schoolClass: widget.schoolClass,

@@ -28,35 +28,43 @@ class _ClassesWidgetState extends State<ClassesWidget> {
     list.addAll(widget.discipline.classes!);
     return Padding(
       padding: const EdgeInsets.fromLTRB(2, 10, 2, 2),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-            gradient: MyColors().gradientStudentCard(),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.fromBorderSide(
-                BorderSide(color: MyColors().titleColor))),
-        child: SizedBox(
-          child: SizedBox(
-            height: heigth * .6,
-            width: width,
-            child: ListView.builder(
-              itemCount: list.length,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    TopComponentWidget(
-                      schoolClass: list[index],
-                      discipline: widget.discipline,
-                    ),
-                    WrapperStudent(
-                      schoolClass: list[index],
-                      discipline: widget.discipline,
-                    ),
-                  ],
-                );
-              },
-            ),
-          ),
+      child: Container(
+        height: heigth * .61,
+        width: width,
+        child: ListView.builder(
+          itemCount: list.length,
+          shrinkWrap: true,
+          physics: PageScrollPhysics(),
+          
+          addAutomaticKeepAlives: true,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            return DecoratedBox(
+              decoration: BoxDecoration(
+                  gradient: MyColors().gradientStudentCard(),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.fromBorderSide(
+                      BorderSide(color: MyColors().titleColor))),
+              child: SizedBox(
+                height: heigth * .6,
+                width: width * .98,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      TopComponentWidget(
+                        schoolClass: list[index],
+                        discipline: widget.discipline,
+                      ),
+                      WrapperStudent(
+                        schoolClass: list[index],
+                        discipline: widget.discipline,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
         ),
       ),
     );

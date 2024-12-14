@@ -2,7 +2,7 @@ import 'package:class_manager/app/interactors/entities/discipline_entity.dart';
 import 'package:class_manager/app/interactors/entities/school_class_entity.dart';
 import 'package:class_manager/app/interactors/entities/student_entity.dart';
 import 'package:class_manager/app/ui/pages/components/my_classes/students/edit_student/edit_name_component.dart';
-import 'package:class_manager/app/ui/pages/components/my_classes/students/edit_student/revaluations_component.dart';
+import 'package:class_manager/app/ui/pages/components/my_classes/students/edit_student/evaluations_component.dart';
 import 'package:class_manager/app/ui/pages/components/my_classes/students/edit_student/top_component.dart';
 import 'package:class_manager/app/ui/pages/initial_page.dart';
 import 'package:class_manager/app/ui/ui_elements/app_colors.dart';
@@ -59,7 +59,7 @@ class _EditStudentWidgetState extends State<EditStudentWidget> {
                         schoolClass: widget.schoolClass,
                         discipline: widget.discipline,
                       ),
-                      RevaluationsComponent(
+                      EvaluationsComponent(
                         student: widget.student,
                         schoolClass: widget.schoolClass,
                         discipline: widget.discipline,

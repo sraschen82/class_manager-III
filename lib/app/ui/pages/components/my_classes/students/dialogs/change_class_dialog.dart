@@ -2,6 +2,7 @@ import 'package:class_manager/app/interactors/entities/discipline_entity.dart';
 import 'package:class_manager/app/interactors/entities/school_class_entity.dart';
 import 'package:class_manager/app/interactors/entities/student_entity.dart';
 import 'package:class_manager/app/interactors/stores/school_class_store.dart';
+import 'package:class_manager/app/interactors/stores/student_store.dart';
 import 'package:class_manager/app/ui/ui_elements/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -139,7 +140,7 @@ Future<void> changeClassDialog(
               TextButton(
                 onPressed: () async {
                   if (selected.name != '') {
-                    await context.read<SchoolClassStore>().changeStudentClass(
+                    await context.read<StudentStore>().changeStudentClass(
                         student: student,
                         newClass: selected,
                         oldClass: schoolClass,

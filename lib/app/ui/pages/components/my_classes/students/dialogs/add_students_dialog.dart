@@ -1,6 +1,6 @@
 import 'package:class_manager/app/interactors/entities/discipline_entity.dart';
 import 'package:class_manager/app/interactors/entities/school_class_entity.dart';
-import 'package:class_manager/app/interactors/stores/school_class_store.dart';
+import 'package:class_manager/app/interactors/stores/student_store.dart';
 import 'package:class_manager/app/ui/ui_elements/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +20,7 @@ Future<void> addStudentsDialog(
           FocusManager.instance.primaryFocus?.unfocus();
           if (nameController.text.length > 3 &&
               nameController.text.contains(' ')) {
-            await context.read<SchoolClassStore>().addStudentsByList(
+            await context.read<StudentStore>().addStudentsByList(
                 listNames: nameController.text,
                 schoolClass: schoolClass,
                 discipline: discipline);

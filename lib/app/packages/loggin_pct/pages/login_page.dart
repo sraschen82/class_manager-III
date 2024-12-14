@@ -223,8 +223,11 @@ class _LogginPageState extends State<LoginPage> {
                                 hoverColor: Colors.white,
                                 prefixIcon: const Icon(Icons.password,
                                     color: Colors.white),
+                                errorStyle: TextStyle(color: Colors.amber),
                                 errorBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.red)),
+                                    borderSide: BorderSide(
+                                        color:
+                                            Color.fromARGB(255, 244, 54, 95))),
                                 contentPadding: const EdgeInsets.all(30),
                                 hintText: '  Your Password',
                                 hintStyle: const TextStyle(color: Colors.white),

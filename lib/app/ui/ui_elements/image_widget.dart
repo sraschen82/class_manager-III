@@ -31,5 +31,3 @@ imageShimmerWidget(String path, double radius, AlignmentGeometry align) {
       .animate(onPlay: (c) => c.repeat())
       .shimmer(delay: const Duration(seconds: 8), color: Colors.white);
 }
-
-

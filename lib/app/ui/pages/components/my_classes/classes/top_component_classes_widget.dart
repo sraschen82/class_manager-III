@@ -3,7 +3,7 @@ import 'package:class_manager/app/interactors/entities/school_class_entity.dart'
 import 'package:class_manager/app/interactors/stores/school_class_store.dart';
 import 'package:class_manager/app/ui/pages/components/generic_confirm_dialog.dart';
 import 'package:class_manager/app/ui/pages/components/my_classes/classes/edit_classes_dialog.dart';
-import 'package:class_manager/app/ui/pages/components/my_classes/students/add_students_dialog.dart';
+import 'package:class_manager/app/ui/pages/components/my_classes/students/dialogs/add_students_dialog.dart';
 import 'package:class_manager/app/ui/ui_elements/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

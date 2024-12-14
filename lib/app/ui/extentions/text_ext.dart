@@ -8,21 +8,25 @@ extension TextExt on Text {
   stockPriceStyle() =>
       Text(data!, style: TextStyle(fontSize: 16, color: MyColors().gold));
 
-  Text evaluateChangesStyle() {
+  Text evaluateChangesStyle(double size) {
     double? value = double.tryParse(data!);
 
     if (value != null) {
       if (value < 6) {
         return Text(
           '$value',
-          style: const TextStyle(
+          style: TextStyle(
               color: Color.fromARGB(255, 231, 9, 9),
-              fontWeight: FontWeight.bold),
+              fontWeight: FontWeight.bold,
+              fontSize: size),
         );
       } else {
         return Text(
           '${value}',
-          style: const TextStyle(color: Color.fromARGB(255, 31, 63, 247)),
+          style: TextStyle(
+              color: Color.fromARGB(255, 221, 223, 235),
+              fontWeight: FontWeight.bold,
+              fontSize: size),
         );
       }
     } else {

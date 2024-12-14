@@ -7,6 +7,7 @@ import 'package:class_manager/app/interactors/stores/discipline_store.dart';
 import 'package:class_manager/app/interactors/stores/schedulles_store.dart';
 import 'package:class_manager/app/interactors/stores/school_class_store.dart';
 import 'package:class_manager/app/interactors/stores/school_year_store.dart';
+import 'package:class_manager/app/interactors/stores/student_store.dart';
 import 'package:class_manager/app/packages/loggin_pct/login_store.dart';
 import 'package:class_manager/app/packages/loggin_pct/pages/switch_page.dart';
 import 'package:class_manager/app/packages/notes_pct/interactors/note_store.dart';
@@ -65,6 +66,10 @@ class _MyAppState extends State<ClassManager> {
         ),
         Provider(
           create: (context) => SchedullesStore(db: context.read<DataBase>()),
+        ),
+        Provider(
+          create: (context) =>
+              StudentStore(classStore: context.read<SchoolClassStore>()),
         ),
       ],
       child: MaterialApp(

@@ -140,13 +140,6 @@ class _DisciplinesWidgetState extends State<DisciplinesWidget> {
         if (showDisciplineOptions)
           ShowDisciplineOptions(
               selectedDiscipline: selectedDiscipline, store: store),
-        // Padding(
-        //   padding: EdgeInsets.all(8),
-        //   child: Center(
-        //     child: Text('---- ${selectedDiscipline.longName} ----')
-        //         .removeNullAndEditSize(25),
-        //   ),
-        // ),
         WrapperClasses(
           discipline: selectedDiscipline,
         ),

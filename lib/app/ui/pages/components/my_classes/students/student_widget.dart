@@ -1,10 +1,11 @@
 import 'package:class_manager/app/interactors/entities/discipline_entity.dart';
 import 'package:class_manager/app/interactors/entities/school_class_entity.dart';
 import 'package:class_manager/app/interactors/entities/student_entity.dart';
-import 'package:class_manager/app/interactors/stores/school_class_store.dart';
+import 'package:class_manager/app/interactors/stores/student_store.dart';
 import 'package:class_manager/app/ui/pages/components/generic_confirm_dialog.dart';
-import 'package:class_manager/app/ui/pages/components/my_classes/students/change_class_dialog.dart';
+import 'package:class_manager/app/ui/pages/components/my_classes/students/dialogs/change_class_dialog.dart';
 import 'package:class_manager/app/ui/pages/components/my_classes/students/edit_student/edit_student_widget.dart';
+import 'package:class_manager/app/ui/pages/components/my_classes/students/student_grades_card_widget.dart';
 import 'package:class_manager/app/ui/ui_elements/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,9 +13,10 @@ import 'package:provider/provider.dart';
 class StudentWidget extends StatefulWidget {
   final Student student;
   final int listNumb;
+  final bool expandAll;
   final SchoolClass schoolClass;
   final Discipline discipline;
-  final bool expandAll;
+
   const StudentWidget(
       {super.key,
       required this.student,
@@ -28,13 +30,19 @@ class StudentWidget extends StatefulWidget {
 }
 
 class _StudentWidgetState extends State<StudentWidget> {
-  late bool showStudentInfo;
   bool showOptions = false;
+  late bool showStudentInfo;
+
   @override
   void initState() {
     super.initState();
     showStudentInfo = widget.expandAll;
-    print('${showStudentInfo}');
+  }
+
+  @override
+  void didUpdateWidget(covariant StudentWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    showStudentInfo = widget.expandAll;
   }
 
   @override
@@ -61,17 +69,19 @@ class _StudentWidgetState extends State<StudentWidget> {
               ? Text(
                   '${widget.listNumb}. ${widget.student.name}',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: MyColors().gold,
-                      fontSize: 19,
-                      overflow: TextOverflow.fade),
+                  style: TextStyle(fontSize: 19, overflow: TextOverflow.fade),
                 )
               : Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(
-                      '${widget.listNumb}. ${widget.student.name}',
-                      style: TextStyle(fontSize: showOptions ? 16 : 13),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${widget.listNumb}. ${widget.student.name}',
+                          textAlign: TextAlign.start,
+                          style: TextStyle(fontSize: showOptions ? 16 : 13),
+                        ),
+                      ],
                     ),
                     if (showOptions)
                       Card(
@@ -116,7 +126,7 @@ class _StudentWidgetState extends State<StudentWidget> {
                                     action: () async {
                                       Navigator.pop(context);
                                       await context
-                                          .read<SchoolClassStore>()
+                                          .read<StudentStore>()
                                           .deleteStudent(
                                               student: widget.student,
                                               schoolClass: widget.schoolClass,
@@ -136,7 +146,11 @@ class _StudentWidgetState extends State<StudentWidget> {
       subtitle: showStudentInfo
           ? Column(
               children: [
-                SizedBox(height: 200, child: Text('Informações')),
+                StudentGradesCardWidget(
+                  student: widget.student,
+                  schoolClass: widget.schoolClass,
+                  discipline: widget.discipline,
+                ),
                 Divider()
               ],
             )
