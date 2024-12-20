@@ -59,9 +59,6 @@ class HomePage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               WrapperSchoolYear(),
-                              // Center(
-                              //   child: Text('Home Page'),
-                              // )
                             ],
                           ),
                         )),

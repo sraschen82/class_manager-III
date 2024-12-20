@@ -44,11 +44,10 @@ class _WrapperSchedullesState extends State<WrapperSchedulles> {
   Widget build(BuildContext context) {
     SchedullesStore store = context.watch<SchedullesStore>();
 
-    final double heigth = MediaQuery.of(context).size.height;
-    final double width = MediaQuery.of(context).size.width;
     return StreamBuilder(
       stream: store.schedullesStream,
       builder: (context, snapshot) {
+        print(snapshot.data);
         late Widget child;
         if (snapshot.connectionState == ConnectionState.waiting) {
           child = SizedBox(
@@ -63,11 +62,7 @@ class _WrapperSchedullesState extends State<WrapperSchedulles> {
         } else if (snapshot.hasData) {
           SchedullesStates state = snapshot.data!;
           if (state is Empty) {
-            child = EmpySchedullesWidget(
-              width: width,
-              heigth: heigth,
-              store: store,
-            );
+            child = EmpySchedullesWidget();
           }
           if (state is Loading) {
             child = SizedBox(

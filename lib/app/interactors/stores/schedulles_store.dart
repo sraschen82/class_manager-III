@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:class_manager/app/data/data_base/abstract_data_base.dart';
 import 'package:class_manager/app/interactors/entities/schedulles_entity.dart';
 import 'package:class_manager/app/interactors/states/schedulles_states.dart';
+import 'package:class_manager/app/ui/extentions/schedulles_ext.dart';
 
 class SchedullesStore {
   final DataBase db;
@@ -18,7 +19,7 @@ class SchedullesStore {
     _controller.sink.add(state);
     Schedulles? schedulles = db.user.schedulles;
     try {
-      schedulles != null
+      schedulles != null && !schedulles.isEmpty()
           ? {
               state = Loaded(schedulles: schedulles),
             }
@@ -74,16 +75,15 @@ class SchedullesStore {
     _controller.sink.add(state);
   }
 
-  Future<void> checkCreatingSchedullesCondictions() async {
-    db.user.schoolYears.first.disicplines!.isEmpty
-        ? {print('Dialog Criar disciplinas')}
-        : {
-            db.user.schoolYears.first.disicplines!.any(
-              (element) => element.classes != null,
-            )
-                ? {print('Dialog Criar horários')}
-                : {print('Dialog Criar Turmas')},
-          };
+  bool checkCreatingSchedullesCondictions() {
+    bool haveAnyClass = false;
+    if (db.user.schoolYears.first.disicplines != null &&
+        db.user.schoolYears.first.disicplines!
+            .any((element) => element.classes != null)) {
+      haveAnyClass = true;
+    }
+
+    return haveAnyClass;
   }
 
   void dispose() => _controller.close();

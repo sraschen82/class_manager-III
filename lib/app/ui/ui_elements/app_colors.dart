@@ -24,6 +24,10 @@ class MyColors {
   final whiteColor = const Color.fromARGB(255, 223, 221, 210);
   final gold = const Color.fromARGB(255, 202, 174, 16);
 
+  // final headTableText = const Color.fromARGB(255, 241, 171, 171);
+  // final headTableText = const Color.fromARGB(255, 250, 203, 203);
+  final headTableText = const Color.fromARGB(255, 243, 238, 189);
+
   final iconColor = const Color.fromARGB(255, 44, 123, 175);
   final gradesIcon = const Color.fromARGB(255, 5, 79, 139);
 
@@ -46,6 +50,21 @@ class MyColors {
     const Color.fromARGB(255, 124, 7, 7),
     color4
   ];
+
+  final selectedButtonGradientColors = [
+    const Color.fromARGB(255, 17, 22, 88),
+    const Color.fromARGB(255, 14, 42, 199),
+    const Color.fromARGB(255, 17, 22, 88),
+  ];
+
+  gradientSelectedButton() {
+    return LinearGradient(
+      colors: selectedButtonGradientColors,
+      tileMode: TileMode.clamp,
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+    );
+  }
 
   gradientHomePage() {
     return LinearGradient(
