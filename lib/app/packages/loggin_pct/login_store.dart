@@ -23,7 +23,6 @@ class LoginStore {
         : state = UnLogged();
 
     _stateController.add(state);
-    print('checkFastLogin: $state');
 
     yield state;
   }

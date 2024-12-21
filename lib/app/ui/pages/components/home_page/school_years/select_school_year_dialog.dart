@@ -1,6 +1,7 @@
 import 'package:class_manager/app/data/data_base/abstract_data_base.dart';
 import 'package:class_manager/app/interactors/entities/school_year_entity.dart';
 import 'package:class_manager/app/interactors/stores/school_year_store.dart';
+import 'package:class_manager/app/ui/pages/initial_page.dart';
 
 import 'package:class_manager/app/ui/ui_elements/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -130,6 +131,12 @@ Future<void> selectSchoolYearDialog({required BuildContext context}) async {
                           .selectSchoolYear(schoolYear: selected);
 
                       Navigator.pop(context);
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => InitialPage(
+                                title: 'Class Manager', pageNumb: 2),
+                          ));
                     }
                   },
                   style: TextButton.styleFrom(

@@ -47,7 +47,6 @@ class _WrapperSchedullesState extends State<WrapperSchedulles> {
     return StreamBuilder(
       stream: store.schedullesStream,
       builder: (context, snapshot) {
-        print(snapshot.data);
         late Widget child;
         if (snapshot.connectionState == ConnectionState.waiting) {
           child = SizedBox(

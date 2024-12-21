@@ -1,4 +1,5 @@
 import 'package:class_manager/app/ui/pages/components/home_page/drawer/drawer_widget.dart';
+import 'package:class_manager/app/ui/pages/components/home_page/resume_widget/resume_widget.dart';
 import 'package:class_manager/app/ui/pages/components/home_page/school_years/wrapper_school_year.dart';
 import 'package:class_manager/app/ui/ui_elements/app_colors.dart';
 import 'package:class_manager/app/ui/ui_elements/image_widget.dart';
@@ -59,6 +60,7 @@ class HomePage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               WrapperSchoolYear(),
+                              ResumeWidget(),
                             ],
                           ),
                         )),
